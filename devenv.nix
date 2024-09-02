@@ -1,7 +1,10 @@
 { pkgs, lib, config, inputs, ... }:
 
 {
-  packages = [ pkgs.git ];
+  packages = [ 
+    pkgs.git
+    pkgs.insomnia
+  ];
 
   languages.nix.enable = true;
   languages.python.enable = true;
