@@ -6,6 +6,10 @@
     pkgs.insomnia
   ];
 
+  enterShell = ''
+    cd restapi-flask
+  '';
+
   languages.nix.enable = true;
   languages.python.enable = true;
   languages.python.directory = "./restapi-flask";
