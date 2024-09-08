@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 from flask_restful import Resource, Api, reqparse
 from flask_mongoengine import MongoEngine
+import re
 
 _user_parser = reqparse.RequestParser()
 _user_parser.add_argument('first_name', type=str, required=True, help='This field cannot be blank')
@@ -39,7 +40,8 @@ class User(Resource):
         return data
 
     def get(self, cpf):
-        return {'message': 'CPF'}
+        if re.findall("([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})", cpf)
+            return {'message': 'CPF'}
 
 api.add_resource(Users, '/users')
 api.add_resource(User, '/user')
