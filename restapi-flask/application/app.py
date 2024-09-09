@@ -1,7 +1,8 @@
 from flask import Flask, jsonify
-from flask_restful import Resource, Api, reqparse
+from flask_restful import Resource, reqparse
 from flask_mongoengine import MongoEngine
 from mongoengine import NotUniqueError
+from .model import UserModel
 import re
 
 _user_parser = reqparse.RequestParser()
@@ -22,24 +23,8 @@ _user_parser.add_argument(
 )
 
 app = Flask(__name__)
-api = Api(app)
 
-app.config["MONGODB_SETTINGS"] = {
-    "db": "users",
-    "host": "mongodb",
-    "port": 27017,
-    "username": "admin",
-    "password": "admin",
-}
 db = MongoEngine(app)
-
-
-class UserModel(db.Document):
-    cpf = db.StringField(required=True, unique=True)
-    email = db.StringField(required=True)
-    first_name = db.StringField(required=True, max_length=50)
-    last_name = db.StringField(required=True, max_length=50)
-    birth_date = db.DateTimeField(required=True)
 
 
 class Users(Resource):
@@ -74,10 +59,3 @@ class User(Resource):
         if response:
             return jsonify(response)
         return {"message": "User does not existe in database"}
-
-
-api.add_resource(Users, "/users")
-api.add_resource(User, "/user/<string:cpf>")
-
-if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")
