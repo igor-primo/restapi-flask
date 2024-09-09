@@ -11,4 +11,6 @@
   languages.python.directory = "./restapi-flask";
   languages.python.venv.enable = true;
   languages.python.venv.requirements = ./restapi-flask/requirements.txt;
+
+  pre-commit.hooks.black.enable = true;
 }
