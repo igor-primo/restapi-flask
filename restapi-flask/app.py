@@ -34,14 +34,20 @@ class Users(Resource):
         return {'message': 'user 1'}
 
 class User(Resource):
+    def validate_cpf(self, cpf):
+        if re.findall("([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})", cpf):
+            return True
+        return False
+
     def post(self):
         data = _user_parser.parse_args()
-        UserModel(**data).save()
-        return data
 
-    def get(self, cpf):
-        if re.findall("([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})", cpf)
-            return {'message': 'CPF'}
+        if not self.validate_cpf(data.cpf):
+            return {'message': 'CPF is invalid'}, 400
+
+        response = UserModel(**data).save()
+
+        return {'message': 'User %s successfully created.' % response.id}
 
 api.add_resource(Users, '/users')
 api.add_resource(User, '/user')
