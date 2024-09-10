@@ -32,12 +32,13 @@ class Users(Resource):
 
 class User(Resource):
     def validate_cpf(self, cpf):
-        if re.findall(
-            "([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})",
-            cpf,
-        ):
-            return True
-        return False
+        return (
+            re.search(
+                r"\d{3}\.\d{3}\.\d{3}-\d{2}",
+                cpf,
+            )
+            != None
+        )
 
     def post(self):
         data = _user_parser.parse_args()
