@@ -24,8 +24,6 @@ _user_parser.add_argument(
 
 app = Flask(__name__)
 
-db = MongoEngine(app)
-
 
 class Users(Resource):
     def get(self):
