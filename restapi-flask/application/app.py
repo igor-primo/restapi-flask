@@ -22,8 +22,6 @@ _user_parser.add_argument(
     "birth_date", type=str, required=True, help="This field cannot be blank"
 )
 
-app = Flask(__name__)
-
 
 class Users(Resource):
     def get(self):
@@ -57,4 +55,4 @@ class User(Resource):
 
         if response:
             return jsonify(response)
-        return {"message": "User does not existe in database"}
+        return {"message": "User does not exist in database"}, 400
