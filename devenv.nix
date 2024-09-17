@@ -4,6 +4,7 @@
   packages = [ 
     pkgs.git
     pkgs.insomnia
+    pkgs.kind
   ];
 
   languages.nix.enable = true;
