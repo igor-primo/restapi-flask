@@ -5,6 +5,7 @@
     pkgs.git
     pkgs.insomnia
     pkgs.kind
+    pkgs.kubectl
   ];
 
   languages.nix.enable = true;
