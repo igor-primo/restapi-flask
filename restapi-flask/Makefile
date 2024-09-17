@@ -1,6 +1,7 @@
 APP = restapi
 
 test:
+	@bandit -x ./tests -r .
 	@pytest -v --disable-warnings
 
 compose:
