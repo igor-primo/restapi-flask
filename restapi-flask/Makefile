@@ -14,7 +14,7 @@ setup-dev:
 	@kubectl wait --namespace ingress-nginx \
 		--for=condition=ready pod \
 		--selector=app.kubernetes.io/component=controller \
-		--timeout=270s
+		--timeout=500s
 
 teardown-dev:
 	@kind delete clusters kind
