@@ -4,6 +4,10 @@
   packages = [ 
     pkgs.git
     pkgs.insomnia
+    pkgs.kind
+    pkgs.kubectl
+    pkgs.kubectl-neat
+    pkgs.kubernetes-helm
   ];
 
   languages.nix.enable = true;
