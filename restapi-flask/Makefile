@@ -1,4 +1,4 @@
-APP = restapi
+APP = restapi-flask
 
 test:
 	@bandit -x ./tests -r .
@@ -26,3 +26,11 @@ setup-dev:
 
 teardown-dev:
 	@kind delete clusters kind
+
+deploy-dev:
+	@docker build -t $(APP):latest .
+	@kind load docker-image $(APP):latest
+	@kubectl apply -f kubernetes/manifests
+	@kubectl rollout restart deploy $(APP)
+
+dev: setup-dev deploy-dev
