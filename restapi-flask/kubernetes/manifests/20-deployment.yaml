@@ -18,14 +18,13 @@ spec:
       - image: restapi-flask
         name: restapi-flask
         imagePullPolicy: Never
+        envFrom:
+          - secretRef:
+              name: mongodb-credentials  
         env:
         - name: FLASK_ENV
           value: "development"
-        - name: MONGODB_DB
-          value: "users"
-        - name: MONGODB_HOST
-          value: "mongodb"
-        - name: MONGODB_USER
-          value: "admin"
-        - name: MONGODB_PASSWORD
-          value: "admin"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
