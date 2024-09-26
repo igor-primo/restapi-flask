@@ -6,6 +6,7 @@
     pkgs.insomnia
     pkgs.kind
     pkgs.kubectl
+    pkgs.kubectl-neat
     pkgs.kubernetes-helm
   ];
 
