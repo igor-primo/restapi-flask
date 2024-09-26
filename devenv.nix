@@ -6,6 +6,7 @@
     pkgs.insomnia
     pkgs.kind
     pkgs.kubectl
+    pkgs.kubernetes-helm
   ];
 
   languages.nix.enable = true;
