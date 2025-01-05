@@ -45,7 +45,7 @@ ingress:
   path: /
   # Used to create an Ingress record.
   hosts:
-    - chart-example.local
+    - local-registry.com
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
