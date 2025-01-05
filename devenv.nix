@@ -16,5 +16,7 @@
   languages.python.venv.enable = true;
   languages.python.venv.requirements = ./restapi-flask/requirements.txt;
 
+  languages.ansible.enable = true;
+
   pre-commit.hooks.black.enable = true;
 }
