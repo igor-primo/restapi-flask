@@ -1,6 +1,8 @@
 repositories:
 - name: twuni
   url: https://helm.twun.io
+- name: ingress-nginx
+  url: https://kubernetes.github.io/ingress-nginx
 
 releases:
 - name: docker-registry
@@ -10,3 +12,12 @@ releases:
   version: 2.2.3
   values:
     - values/docker-registry/values.yaml
+
+- name: ingress-nginx
+  namespace: ingress-nginx
+  createNamespace: true
+  chart: ingress-nginx/ingress-nginx
+  version: 4.9.1
+  values:
+    - values/ingress-nginx/values.yaml
+

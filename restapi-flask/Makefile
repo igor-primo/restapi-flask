@@ -10,11 +10,12 @@ compose:
 
 setup-dev:
 	@kind create cluster --config kubernetes/config/config.yaml
-	@kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
-	@kubectl wait --namespace ingress-nginx \
-		--for=condition=ready pod \
-		--selector=app.kubernetes.io/component=controller \
-		--timeout=500s
+	@kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.8/config/manifests/metallb-native.yaml
+	@kubectl wait --namespace metallb-system \
+	--for=condition=ready pod \
+	--selector=app=metallb \
+	--timeout=900s
+	@kubectl apply -f manifests/
 	@helm upgrade \
 		--set image.tag="5.0.8" \
 		--set auth.rootPassword="root" \
@@ -23,6 +24,7 @@ setup-dev:
 		--for=condition=ready pod \
 		--selector=app.kubernetes.io/component=mongodb \
 		--timeout=500s
+	@helmfile apply
 
 teardown-dev:
 	@kind delete clusters kind
