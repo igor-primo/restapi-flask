@@ -1,23 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: restapi-flask
+  labels: {{ include "restapi-flask.labels" . | nindent 4 }}
   name: {{ include "restapi-flask.fullname" . }}
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount | default 1 }}
   selector:
     matchLabels:
-      app: restapi-flask
+      app: {{ include "restapi-flask.fullname" . }}
   template:
     metadata:
       labels:
-        app: restapi-flask
+        app: {{ include "restapi-flask.fullname" . }} 
     spec:
       containers:
-      - image: restapi-flask
-        name: restapi-flask
-        imagePullPolicy: Never
+      - image: {{ .Values.image.registry | default "restapi-flask" }}:{{ .Values.image.tag | default "latest"}}
+        name: api
         envFrom:
           - secretRef:
               name: mongodb-credentials  
@@ -28,3 +26,10 @@ spec:
           httpGet:
             path: /health
             port: 5000
+
+  # TODO: seek ways to avoid the difficulties in parameterizing
+  # this devilish thing. Issues:
+  #   1. Too verbose
+  #   2. Too repetitive
+  #   3. Go parsing gives rise to unsafe parsing
+  #   4. I have to edit at least 2 files, this one 'values.yaml'
