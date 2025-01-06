@@ -25,6 +25,10 @@ setup-dev:
 		--selector=app.kubernetes.io/component=mongodb \
 		--timeout=500s
 	@helmfile apply
+	@kubeseal < secrets/10-secret.yaml -oyaml \
+		| kubectl neat > ./kubernetes/charts/restapi-flask/templates/secret.yaml \
+		&& git add ./kubernetes/charts/restapi-flask/templates/secret.yaml \
+		&& git commit -m 'chore: update restapi-flask secret on cluster initialization'
 
 teardown-dev:
 	@kind delete clusters kind
