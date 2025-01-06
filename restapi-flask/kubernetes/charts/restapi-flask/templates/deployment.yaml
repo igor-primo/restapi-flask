@@ -31,7 +31,7 @@ spec:
         livenessProbe:
           httpGet:
             path: /health
-            port: {{ .Values.appPort }}
+            port: {{ .Values.appPort | default "5000" }}
         {{- end }}
         {{- if .Values.readinessProbe }}
         readinessProbe:
@@ -40,7 +40,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /health
-            port: {{ .Values.appPort }}
+            port: {{ .Values.appPort | default "5000" }}
         {{- end }}
 
   # TODO: seek ways to avoid the difficulties in parameterizing
