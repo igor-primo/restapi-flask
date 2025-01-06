@@ -3,6 +3,9 @@ repositories:
   url: https://helm.twun.io
 - name: ingress-nginx
   url: https://kubernetes.github.io/ingress-nginx
+- name: sealed-secrets
+  url: https://bitnami-labs.github.io/sealed-secrets
+
 
 releases:
 - name: docker-registry
@@ -21,3 +24,13 @@ releases:
   values:
     - values/ingress-nginx/values.yaml
 
+- name: sealed-secrets
+  namespace: kube-system
+  createNamespace: true
+  chart: sealed-secrets/sealed-secrets
+  version: 2.17.0
+  values:
+    - values/sealed-secrets/values.yaml
+  set:
+    - name: fullnameOverride
+      value: sealed-secrets-controller

@@ -9,6 +9,7 @@
     pkgs.kubectl-neat
     pkgs.kubernetes-helm
     pkgs.helmfile
+    pkgs.kubeseal
   ];
 
   languages.nix.enable = true;
