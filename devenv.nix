@@ -19,5 +19,7 @@
 
   languages.ansible.enable = true;
 
+  scripts.k.exec = ''kubectl "$@"'';
+
   pre-commit.hooks.black.enable = true;
 }
