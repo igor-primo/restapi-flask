@@ -16,20 +16,36 @@ spec:
       containers:
       - image: {{ .Values.image.registry | default "restapi-flask" }}:{{ .Values.image.tag | default "latest"}}
         name: api
-        envFrom:
-          - secretRef:
-              name: mongodb-credentials  
+        {{- if .Values.environmentVariables }}
         env:
-        - name: FLASK_ENV
-          value: "development"
+        {{- toYaml .Values.environmentVariables | nindent 8 }}
+        {{- end }}
+        {{- if .Values.environmentVariablesFrom }}
+        envFrom:
+        {{- toYaml .Values.environmentVariablesFrom | nindent 8 }}
+        {{- end }}
+        {{- if .Values.livenessProbe }}
+        livenessProbe:
+        {{- toYaml .Values.livenessProbe | nindent 10 }}
+        {{ else }}
         livenessProbe:
           httpGet:
             path: /health
-            port: 5000
+            port: {{ .Values.appPort }}
+        {{- end }}
+        {{- if .Values.readinessProbe }}
+        readinessProbe:
+        {{- toYaml .Values.readinessProbe | nindent 10 }}
+        {{ else }}
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: {{ .Values.appPort }}
+        {{- end }}
 
   # TODO: seek ways to avoid the difficulties in parameterizing
   # this devilish thing. Issues:
   #   1. Too verbose
-  #   2. Too repetitive
+  #   2. Too repetitive (too much copying)
   #   3. Go parsing gives rise to unsafe parsing
   #   4. I have to edit at least 2 files, this one 'values.yaml'

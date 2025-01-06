@@ -4,12 +4,27 @@
 
 replicaCount: 3
 
+appPort: 5000
+
 image:
   registry: local-registry.com/restapi-flask
   repository: nginx
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest
+
+environmentVariables:
+  - name: FLASK_ENV
+    value: development
+
+environmentVariablesFrom:
+  - secretRef:
+    name: mongodb-credentials  
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 5000
 
 imagePullSecrets: []
 nameOverride: ""
