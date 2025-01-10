@@ -22,6 +22,8 @@
   languages.ansible.enable = true;
 
   scripts.k.exec = ''kubectl "$@"'';
+  scripts.ta.exec = ''terraform apply -auto-approve'';
+  scripts.td.exec = ''terraform destroy -auto-approve'';
 
   pre-commit.hooks.black.enable = true;
 }

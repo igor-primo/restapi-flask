@@ -19,9 +19,7 @@ resource "libvirt_pool" "ubuntu" {
 
 locals {
   domains = [
-    { name = "ubuntu-qcow2-1" },
-    { name = "ubuntu-qcow2-2" },
-    { name = "ubuntu-qcow2-3" },
+    { name = "ubuntu-qcow2" },
   ]
 }
 

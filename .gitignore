@@ -173,3 +173,5 @@ devenv.local.nix
 restapi-flask/secrets/*.yaml
 
 .terraform
+.terraform.tfstate*
+terraform.tfstate*
