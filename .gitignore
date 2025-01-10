@@ -171,3 +171,5 @@ devenv.local.nix
 .pre-commit-config.yaml
 
 restapi-flask/secrets/*.yaml
+
+.terraform
