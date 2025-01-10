@@ -10,6 +10,7 @@
     pkgs.kubernetes-helm
     pkgs.helmfile
     pkgs.kubeseal
+    pkgs.terraform
   ];
 
   languages.nix.enable = true;
