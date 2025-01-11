@@ -58,7 +58,6 @@ resource "libvirt_domain" "domain-ubuntu" {
   cloudinit = libvirt_cloudinit_disk.commoninit.id
 
   network_interface {
-    addresses = [ "192.168.124.7${count.index}" ]
     network_name = "default"
   }
 

@@ -11,6 +11,7 @@
     pkgs.helmfile
     pkgs.kubeseal
     pkgs.terraform
+    pkgs.cloud-init
   ];
 
   languages.nix.enable = true;
